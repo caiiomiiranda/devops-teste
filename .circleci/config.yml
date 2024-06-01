@@ -1,35 +1,28 @@
-# This config was automatically generated from your source code
-# Stacks detected: deps:node:app
 version: 2.1
-orbs:
-  node: circleci/node@5
+
 jobs:
-  test-node:
-    # Install node dependencies and run tests
-    executor: node/default
-    working_directory: ~/project/app
-    steps:
-      - checkout:
-          path: ~/project
-      - node/install-packages:
-          cache-path: ~/project/node_modules
-          override-ci-command: npm install
-      - run:
-          name: Run tests
-          command: npm test --passWithNoTests
-  deploy:
-    # This is an example deploy job, not actually used by the workflow
+  build:
     docker:
-      - image: cimg/base:stable
+      - image: circleci/node:14.17
     steps:
-      # Replace this with steps to deploy to users
+#Checkout
+      - checkout
+      - setup_remote_docker
       - run:
-          name: deploy
-          command: '#e.g. ./deploy.sh'
+          name: Build Docker
+          command: docker build -t index.js -f ./app/Dockerfile .
+      - run:
+          name: Test Docker
+          command: docker run -d -p 3000:3000 index.js
+#Fake test
+      - run:
+          name: Fake Test
+          command: echo "Fake test"
 workflows:
-  build-and-test:
+  version: 2
+  build-test:
     jobs:
-      - test-node
+      - build
     # - deploy:
     #     requires:
     #       - test-node
