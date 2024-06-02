@@ -1,14 +1,14 @@
-#Imagem Node.js
+#Image Node.js
 FROM node:14
-#Diretório de trabalho
+#Work Directory
 WORKDIR /usr/src/app
-#Copia package.json
+#Copy package.json
 COPY package*.json ./
-#Instalação de dependências
+#Install of dependencies
 RUN npm install
-#Copia os arquivos da app
+#Copy files of app
 COPY . .
-#Exposição da porta da app
+#Expose app port
 EXPOSE 3000
-#Rodar a app
+#Run a app
 CMD [ "npm", "start" ]

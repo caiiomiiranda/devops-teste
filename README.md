@@ -36,7 +36,7 @@ Estamos testando sua capacidade de implementar infraestrutura automatizada moder
 2.3 - Deploy -> Criar um script para implementar de forma automatizada a aplicação. Deploy deve ser feito via pipeline no local 
 de sua escolha. Recomendamos AWS (EC2, ECS, Fargate, Beanstalk, etc).
 
-3 - Criar a Infraestrurura como Código. Recomendamos terraform.
+3 - Criar a Infraestrutura como Código. Recomendamos terraform.
 
 4 - Disponibilizar uma URL/IP com o retorno do Aplicação "Hello World! {hostname}!".
 
