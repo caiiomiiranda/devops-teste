@@ -15,11 +15,16 @@ resource "aws_instance" "server_app_devops" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo yum update -y",
-      "sudo yum install -y docker",
-      "sudo service docker start",
-      "docker run -d -p 3000:3000 caio76/index.js"
+        "ls -al"
+#      "sudo yum update -y",
+#      "sudo yum install -y docker",
+#      "sudo service docker start",
+#      "docker run -d -p 3000:3000 caio76/index.js"
     ]
+  }  
+
+    provisioner "remote-exec" {
+      script = "/app/deploy_app.sh" 
 
     connection {
       type        = "ssh"
