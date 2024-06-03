@@ -7,6 +7,7 @@ provider "aws" {
 resource "aws_instance" "server_app_devops" {
   ami           = var.ami
   instance_type = var.instance_type
+  key_name      = var.key_name
 
   tags = {
     Name = "app-devops-instance"
@@ -29,3 +30,8 @@ resource "aws_instance" "server_app_devops" {
     }
   }
 }
+
+variable "aws_access_key" {}
+variable "aws_secret_key" {}
+variable "private_key_path" {}
+variable "key_name" {}
