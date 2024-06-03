@@ -25,3 +25,7 @@ variable "aws_access_key" {
 variable "aws_secret_key" {
   description = "AWS Secret Key"
 }
+
+variable "key_name" {
+  description = "SSH Key"
+}
