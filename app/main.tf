@@ -18,14 +18,13 @@ resource "aws_instance" "server_app_devops" {
       "sudo yum update -y",
       "sudo yum install -y docker",
       "sudo service docker start",
-      "sudo usermod -a -G docker ec2-user",
       "docker run -d -p 3000:3000 caio76/index.js"
     ]
 
     connection {
       type        = "ssh"
-      user        = "ec2-user"
-      private_key = var.private_key
+      user        = "root"
+      private_key = "${var.private_key}"
       host        = self.public_ip
     }
   }
