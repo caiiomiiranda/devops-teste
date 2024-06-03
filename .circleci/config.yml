@@ -10,7 +10,7 @@ jobs:
       - setup_remote_docker
       - run:
           name: Files for debug
-          command: ls -al /root/project
+          command: ls -al
       - run:
           name: Build Docker
           command: docker build -t index.js -f ./app/Dockerfile .
@@ -30,7 +30,7 @@ jobs:
       - setup_remote_docker
       - run:
           name: Files for debug
-          command: ls -al /root/project
+          command: ls -al
       - run:
           name: Install Key SSH
           command: |
