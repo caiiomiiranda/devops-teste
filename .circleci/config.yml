@@ -40,7 +40,7 @@ jobs:
       - run:
           name: Deploy Terraform
           command: |
-            cd /app
+            cd app
             terraform init
             terraform apply -auto-approve \
               -var "private_key_path=~/.ssh/id_rsa" \
