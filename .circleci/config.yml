@@ -38,16 +38,14 @@ jobs:
             echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
             chmod 600 ~/.ssh/id_rsa
             ssh-keyscan -H github.com >> ~/.ssh/known_hosts
-            pwd
             ls -al ~/.ssh
-            cat ~/.ssh/id_rsa
       - run:
           name: Deploy Terraform
           command: |
             cd app
             terraform init
             terraform apply -auto-approve \
-              -var "private_key_path=/root/project/.ssh/id_rsa" \
+              -var "private_key="$SSH_PRIVATE_KEY" \
               -var "aws_access_key=$AWS_ACCESS_KEY_ID" \
               -var "aws_secret_key=$AWS_SECRET_ACCESS_KEY" \
               -var "key_name=$AWS_KEY_NAME"
