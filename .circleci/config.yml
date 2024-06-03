@@ -9,6 +9,10 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
+          name: Files for debug
+          command: pwd
+            ls -al
+      - run:
           name: Build Docker
           command: docker build -t index.js -f ./app/Dockerfile .
       - run:
@@ -27,7 +31,8 @@ jobs:
       - setup_remote_docker
       - run:
           name: Files for debug
-          command: ls -al /home/circleci/project
+          command: pwd
+            ls -al
       - run:
           name: Install Key SSH
           command: |
