@@ -4,9 +4,6 @@ set -e
 #Terraform Init
 terraform init
 
-#Terraform Plan
-terraform plan
-
 #Terraform Apply
 terraform apply -auto-approve \
   -var "private_key_path=/root/project/id_rsa" \
