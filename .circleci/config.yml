@@ -10,8 +10,7 @@ jobs:
       - setup_remote_docker
       - run:
           name: Files for debug
-          command: pwd
-            ls -al
+          command: ls -al /root/project
       - run:
           name: Build Docker
           command: docker build -t index.js -f ./app/Dockerfile .
@@ -31,8 +30,7 @@ jobs:
       - setup_remote_docker
       - run:
           name: Files for debug
-          command: pwd
-            ls -al
+          command: ls -al /root/project
       - run:
           name: Install Key SSH
           command: |
@@ -42,7 +40,7 @@ jobs:
       - run:
           name: Deploy Terraform
           command: |
-            cd /home/circleci/project
+            cd /root/project
             terraform init
             terraform apply -auto-approve \
               -var "private_key_path=~/.ssh/id_rsa" \
