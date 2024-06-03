@@ -26,6 +26,9 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
+          name: Files for debug
+          command: ls -al /home/circleci/project
+      - run:
           name: Install Key SSH
           command: |
             mkdir -p ~/.ssh
