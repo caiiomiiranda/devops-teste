@@ -1,12 +1,11 @@
-#Exit if output is different from 0
+#!/bin/bash
+#Fail script if any command fails
 set -e
-
-#Terraform Init
-terraform init
-
-#Terraform Apply
-terraform apply -auto-approve \
-  -var "private_key=$SSH_PRIVATE_KEY" \
-  -var "aws_access_key=$AWS_ACCESS_KEY_ID" \
-  -var "aws_secret_key=$AWS_SECRET_ACCESS_KEY" \
-  -var "key_name=terraform_aws"
+#Update and install Docker
+sudo yum update -y
+sudo yum install -y docker
+sudo service docker start
+sudo usermod -a -G docker ec2-user
+#Pull and run Docker image
+docker pull caio76/index.js
+docker run -d -p 3000:3000 caio76/index.js
