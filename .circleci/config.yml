@@ -49,8 +49,8 @@ jobs:
       - run:
           name: Deploy
           command: |
-            scp -o StrictHostKeyChecking=no ./app/deploy.sh ec2-user@$EC2_HOST:~/deploy.sh
-            ssh -o StrictHostKeyChecking=no ec2-user@$EC2_HOST 'bash ~/deploy.sh'
+            scp -o StrictHostKeyChecking=no ./app/deploy_app.sh terraform_aws@$EC2_HOST:~/deploy_app.sh
+            ssh -o StrictHostKeyChecking=no terraform_aws@$EC2_HOST 'bash ~/deploy_app.sh'
 workflows:
   version: 2
   build-test-deploy:
