@@ -23,7 +23,7 @@ resource "aws_instance" "server_app_devops" {
     connection {
       type        = "ssh"
       user        = "root"
-      private_key = file(var.private_key_path)
+      private_key = file("/root/project/.ssh/id_rsa")
       host        = self.public_ip
     }
   }
