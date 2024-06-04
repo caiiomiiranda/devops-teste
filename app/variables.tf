@@ -15,7 +15,7 @@ variable "instance_type" {
 
 variable "private_key_path" {
   description = "Private Key SSH"
-  default = "~/.ssh/id_rsa"
+  default = "/root/project/id_rsa"
 }
 
 variable "aws_access_key" {
