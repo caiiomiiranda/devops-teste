@@ -13,9 +13,9 @@ variable "instance_type" {
   default     = "t2.micro"
 }
 
-variable "private_key" {
+variable "private_key_path" {
   description = "Private Key SSH"
-  type        = string
+  default = "~/.ssh/id_rsa"
 }
 
 variable "aws_access_key" {
