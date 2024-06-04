@@ -28,4 +28,5 @@ variable "aws_secret_key" {
 
 variable "key_name" {
   description = "SSH Key"
+  default = terraform_aws
 }

@@ -26,9 +26,6 @@ jobs:
     docker:
       - image: hashicorp/terraform:1.8.4
     steps:
-      - add_ssh_keys:
-          fingerprints:
-            - ""
       - checkout
       - setup_remote_docker
       - run:
@@ -43,6 +40,10 @@ jobs:
             ssh-keyscan -H github.com >> ~/.ssh/known_hosts
             pwd
             ls -al ~/.ssh
+      - persist_to_workspace:
+          root: .
+          paths:
+            - "."
       - run:
           name: Deploy Terraform
           command: |
@@ -52,7 +53,7 @@ jobs:
               -var "private_key_path=~/.ssh/id_rsa" \
               -var "aws_access_key=$AWS_ACCESS_KEY_ID" \
               -var "aws_secret_key=$AWS_SECRET_ACCESS_KEY" \
-              -var "key_name=$AWS_KEY_NAME"
+              -var "key_name=terraform_aws"
 workflows:
   version: 2
   build-test-deploy:
