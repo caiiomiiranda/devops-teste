@@ -49,7 +49,7 @@ jobs:
       - run:
           name: Deploy Terraform
           command: |
-            cd /home/circleci/project
+            ls -al
             terraform init
             terraform apply -auto-approve \
               -var "private_key_path=~/.ssh/id_rsa" \
