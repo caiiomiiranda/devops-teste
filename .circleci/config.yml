@@ -30,7 +30,7 @@ jobs:
 #Deploy
   deploy:
     docker:
-      - image: circleci/python:3.8
+      - image: hashicorp/terraform:1.8.4
     steps:
       - checkout
       - setup_remote_docker
@@ -47,10 +47,14 @@ jobs:
             pwd
             ls -al ~/.ssh
       - run:
-          name: Deploy
+          name: Deploy Terraform
           command: |
-            scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ./app/deploy_app.sh terraform_aws@$EC2_HOST:~/deploy_app.sh
-            ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no terraform_aws@$EC2_HOST 'bash ~/deploy_app.sh'
+            cd /home/circleci/project
+            terraform init
+            terraform apply -auto-approve \
+              -var "private_key_path=~/.ssh/id_rsa" \
+              -var "aws_access_key=$AWS_ACCESS_KEY_ID" \
+              -var "aws_secret_key=$AWS_SECRET_ACCESS_KEY"
 workflows:
   version: 2
   build-test-deploy:
