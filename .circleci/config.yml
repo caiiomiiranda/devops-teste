@@ -49,6 +49,7 @@ jobs:
       - run:
           name: Deploy Terraform
           command: |
+            cd app
             ls -al
             terraform init
             terraform apply -auto-approve \
