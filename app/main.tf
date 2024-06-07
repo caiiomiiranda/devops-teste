@@ -1,18 +1,10 @@
 provider "aws" {
   region = var.region
-  #  access_key = var.aws_access_key
-  #  secret_key = var.aws_secret_key 
 }
 
 resource "tls_private_key" "generate-key" {
   algorithm = "RSA"
   rsa_bits  = 4096
-}
-
-resource "local_file" "private_key" {
-  content  = tls_private_key.generate-key.private_key_pem
-  filename = "/root/project/deployer-key.pem"
-  file_permission = "0600"
 }
 
 resource "aws_key_pair" "key-pair" {
@@ -28,14 +20,14 @@ resource "aws_instance" "server_app_devops" {
   tags = {
     Name = "app-devops-instance"
   }
+    provisioner "remote-exec" {
     connection {
       type        = "ssh"
       user        = "ec2-user"
-      private_key = "/root/project/deployer-key.pem"
+      private_key = tls_private_key.generate-key.private_key_pem
       host        = self.public_ip
-    }
-    provisioner "remote-exec" {
-      inline = [
+    }  
+    inline = [
       "sudo yum update -y",
       "sudo yum install -y docker",
       "sudo service docker start",
