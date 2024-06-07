@@ -40,9 +40,6 @@ jobs:
       - run:
           name: Install Key SSH
           command: |
-            mkdir -p ~/.ssh
-            echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-            chmod 600 ~/.ssh/id_rsa
             ssh-keyscan -H github.com >> ~/.ssh/known_hosts
             pwd
             ls -al ~/.ssh
@@ -53,6 +50,7 @@ jobs:
             ls -al
             terraform init
             terraform apply -auto-approve
+            ls -al ~/.ssh
 workflows:
   version: 2
   build-test-deploy:
