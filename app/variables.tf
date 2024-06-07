@@ -13,19 +13,21 @@ variable "instance_type" {
   default     = "t2.micro"
 }
 
-variable "private_key_path" {
-  description = "Private Key SSH"
-}
+# variable "aws_access_key" {
+#   description = "AWS Access Key"
+# }
 
-variable "aws_access_key" {
-  description = "AWS Access Key"
-}
+# variable "aws_secret_key" {
+#   description = "AWS Secret Key"
+# }
 
-variable "aws_secret_key" {
-  description = "AWS Secret Key"
-}
+# variable "key_name" {
+#   description = "SSH Key"
+#   default = "terraform_aws"
+# }
 
-variable "key_name" {
-  description = "SSH Key"
-  default = "terraform_aws"
-}
+# variable "key-pair" {
+#   description = "Value AWS SSH key-pair"
+#   type        = string
+#   default     = "key-pair"
+# }

@@ -1,13 +1,23 @@
 provider "aws" {
   region = var.region
-  access_key = var.aws_access_key
-  secret_key = var.aws_secret_key 
+  # access_key = var.aws_access_key
+  # secret_key = var.aws_secret_key 
+}
+
+resource "tls_private_key" "generate-key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+resource "aws_key_pair" "key-pair" {
+  key_name = "key-pair"
+  public_key = tls_private_key.generate-key.public_key_openssh
 }
 
 resource "aws_instance" "server_app_devops" {
   ami           = var.ami
   instance_type = var.instance_type
-  key_name      = var.key_name
+  key_name      = aws_key_pair.key-pair.key_name
 
   tags = {
     Name = "app-devops-instance"
@@ -22,8 +32,8 @@ resource "aws_instance" "server_app_devops" {
     ]
     connection {
       type        = "ssh"
-      user        = "root"
-      private_key = file(var.private_key_path)
+      user        = "ec2-user"
+      private_key = output.instance_public_key
       host        = self.public_ip
     }
   }
