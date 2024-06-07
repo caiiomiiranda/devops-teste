@@ -9,6 +9,12 @@ resource "tls_private_key" "generate-key" {
   rsa_bits  = 4096
 }
 
+resource "local_file" "private_key" {
+  content  = tls_private_key.generate-key.private_key_pem
+  filename = "/root/project/deployer-key.pem"
+  file_permission = "0600"
+}
+
 resource "aws_key_pair" "key-pair" {
   key_name = "key-pair"
   public_key = tls_private_key.generate-key.public_key_openssh
@@ -22,7 +28,6 @@ resource "aws_instance" "server_app_devops" {
   tags = {
     Name = "app-devops-instance"
   }
-
     provisioner "remote-exec" {
       inline = [
       "sudo yum update -y",
@@ -33,7 +38,7 @@ resource "aws_instance" "server_app_devops" {
     connection {
       type        = "ssh"
       user        = "ec2-user"
-      private_key = output.instance_public_key
+      private_key = "/root/project/deployer-key.pem"
       host        = self.public_ip
     }
   }
