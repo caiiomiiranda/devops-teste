@@ -28,6 +28,12 @@ resource "aws_instance" "server_app_devops" {
   tags = {
     Name = "app-devops-instance"
   }
+    connection {
+      type        = "ssh"
+      user        = "ec2-user"
+      private_key = "/root/project/deployer-key.pem"
+      host        = self.public_ip
+    }
     provisioner "remote-exec" {
       inline = [
       "sudo yum update -y",
@@ -35,11 +41,5 @@ resource "aws_instance" "server_app_devops" {
       "sudo service docker start",
       "docker run -d -p 3000:3000 caio76/index.js"
     ]
-    connection {
-      type        = "ssh"
-      user        = "ec2-user"
-      private_key = "/root/project/deployer-key.pem"
-      host        = self.public_ip
-    }
   }
 }
