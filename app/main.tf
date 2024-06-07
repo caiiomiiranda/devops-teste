@@ -8,7 +8,7 @@ resource "tls_private_key" "generate-key" {
 }
 
 resource "aws_key_pair" "key-pair" {
-  key_name = "key-pair"
+  key_name   = "key-pair"
   public_key = tls_private_key.generate-key.public_key_openssh
 }
 
@@ -20,13 +20,13 @@ resource "aws_instance" "server_app_devops" {
   tags = {
     Name = "app-devops-instance"
   }
-    provisioner "remote-exec" {
+  provisioner "remote-exec" {
     connection {
       type        = "ssh"
       user        = "ec2-user"
       private_key = tls_private_key.generate-key.private_key_pem
       host        = self.public_ip
-    }  
+    }
     inline = [
       "sudo yum update -y",
       "sudo yum install -y docker",
